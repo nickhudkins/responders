@@ -42,5 +42,14 @@ if defined?(ActionController::API)
       expected = { errors: errors }
       assert_equal expected.to_json, @response.body
     end
+
+    def test_api_controller_with_accept_all
+      @request.accept = Mime::ALL
+
+      post :create
+      assert_equal 201, @response.status
+      expected = { name: "Foo", id: 1 }
+      assert_equal expected.to_json, @response.body
+    end
   end
 end
